@@ -1,0 +1,37 @@
+.img-hover:hover {
+  transform: scale(1.1);
+}
+footer {
+  background-color: #444b52;
+}
+span {
+  color: white !important;
+  cursor: default;
+}
+.link-underline-opacity-25 {
+  --bs-link-underline-opacity: 0;
+}
+.nav-padding {
+  padding-left: 80px;
+  padding-right: 80px;
+  padding-top: 20px;
+}
+.text-position {
+  padding-left: 90px;
+  margin-bottom: 30px;
+}
+.text-color {
+  color: white !important;
+}
+.btn-tambah {
+  background: rgb(141, 141, 141);
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+  border: none;
+}
+.fa-solid {
+  color: rgb(30, 30, 30);
+}
+
+/* login */
