@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <?php
-include '../../config/koneksi.php'
+session_start();
+if (isset($_SESSION['username'])) {
+    header('location:../user/index.php');
+    exit;
+}
 ?>
 <html lang="en">
 
@@ -9,29 +13,29 @@ include '../../config/koneksi.php'
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="../../dist/css/login.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
 
 <body>
     <div class="wrapper">
-        <form action="../../app/auhtService.php" method="post">
+        <form action="../../app/service/auhtService.php" method="post">
             <?php
             if (isset($_GET['pesan'])) {
             ?>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Login Gagal</strong><?php echo $_GET['pesan']; ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Login Gagal </strong><?php echo $_GET['pesan']; ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             <?php } ?>
             <h1>Login</h1>
             <div class="input-box">
-                <input type="text" placeholder="Username" required>
-                <i class='bx bxs-envelope'></i>
+                <input type="text" placeholder="Username" name="username" required>
+                <i class="fa-solid fa-user"></i>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Password" required>
-                <i class='bx bxs-lock-alt'></i>
+                <input type="password" placeholder="Password" name="password" required>
+                <i class="fa-solid fa-lock"></i>
             </div>
             <!-- <div class="remember-forgot">
             <label for="">
@@ -45,6 +49,10 @@ include '../../config/koneksi.php'
             </div>
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../dist/js/login.js"></script>
+
+
 </body>
 
 </html>
