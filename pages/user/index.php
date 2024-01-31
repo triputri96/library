@@ -19,14 +19,12 @@ if (!isset($_SESSION['username'])) {
     <link rel="stylesheet" href="../../dist/css/style.css">
 </head>
 
-<body onresize="checkMediaQuery()">
+<body class="bg-secondary" onresize="checkMediaQuery()">
     <header>
-        <nav class="navbar navbar-expand-lg bg-secondary nav-padding">
+        <nav class="navbar navbar-expand-lg bg-secondary nav-padding position-fixed w-100">
             <div class="container-fluid">
                 <a class="navbar-brand text-color logo-cursor" href="#">putriGalery</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -39,16 +37,15 @@ if (!isset($_SESSION['username'])) {
                         </li>
                     </ul>
                     <form class="d-flex" role="search" action="#search-results">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                            name="cari">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="cari">
                         <input class="btn btn-outline-light" type="submit" name="search_results">
                     </form>
                 </div>
             </div>
         </nav>
     </header>
-    <section id="home" class="h-100 bg-secondary">
-        <h1 class="text-color mb-4">Selamat Datang <b><?= $_SESSION['nama'] ?></b></h1>
+    <section id="home" class="h-100">
+        <h1 class="text-color mb-4 margin-top">Selamat Datang <b><?= $_SESSION['nama'] ?></b></h1>
         <!-- <div class="justify-content-center align-items-center"> -->
         <div>
             <div class="row">
@@ -63,22 +60,20 @@ if (!isset($_SESSION['username'])) {
                 $sql = mysqli_query($konek, $query);
                 while ($data = mysqli_fetch_array($sql)) :
                 ?>
-                <div class="mb-3 col col-md-3 img-hover" id="album">
-                    <div class="text-center">
-                        <a href="album.php?album_id=<?= $data['album_id'] ?>">
-                            <!-- <div class="object-fit-cover rounded"
-                                style="height:250px; width=250px; background-image: url('../../dist/uploads/<?php echo $data['gambar']; ?>')">
+                    <div class="mb-3 col col-md-3 img-hover" id="album">
+                        <div class="text-center">
+                            <a href="album.php?album_id=<?= $data['album_id'] ?>">
+                                <!-- <div class="object-fit-cover rounded"
+                                style="height:250px; width=250px; background-image: url('../../dist/uploads/<?php echo $data['foto']; ?>')">
                             </div> -->
-                            <img src="../../dist/uploads/<?php echo $data['gambar']; ?>" height="250" width="250"
-                                class="object-fit-cover rounded"
-                                style="background-image: url('../../dist/uploads/<?php echo $data['gambar']; ?>">
-                        </a>
-                        <h-6 class="d-block">
-                            <?php echo $data['nama_album']; ?>
-                        </h-6>
+                                <img src="../../dist/uploads/<?php echo $data['foto']; ?>" height="250" width="250" class="object-fit-cover rounded" style="background-image: url('../../dist/uploads/<?php echo $data['foto']; ?>">
+                            </a>
+                            <h5 class="d-block text-color">
+                                <?php echo $data['nama_album']; ?>
+                            </h5>
 
+                        </div>
                     </div>
-                </div>
                 <?php
                     $count++;
                 endwhile
@@ -87,8 +82,7 @@ if (!isset($_SESSION['username'])) {
                     <div class="text-center position-relative btn-tambah">
                         <a href="tambahalbum.php">
                             <!-- <input type="button" name="tmbAlbum" class="btn-tambah"> -->
-                            <i class="fa-solid fa-plus"
-                                style="font-size: 250px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
+                            <i class="fa-solid fa-plus" style="font-size: 250px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
                         </a>
 
                     </div>

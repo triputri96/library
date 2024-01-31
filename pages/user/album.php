@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../../dist/css/style.css">
 </head>
 
-<body onresize="checkMediaQuery()">
+<body class="bg-secondary" onresize="checkMediaQuery()">
     <header>
         <nav class="navbar navbar-expand-lg bg-secondary nav-padding position-fixed w-100">
             <div class="container-fluid">
@@ -23,14 +23,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto ">
                         <li class="nav-item">
-                            <a class="nav-link text-color" aria-current="page" href="#home">Home</a>
+                            <a class="nav-link text-color" aria-current="page" href="index.php">Home</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link text-color" href="../auth/logout.php">Hapus</a>
-                        </li>
+                        </li> -->
                     </ul>
                     <div class="d-flex">
-                        <button type="button" onclick="toggleSidebar(true)">
+                        <button type="button" onclick="toggleSidebar(true)" class="btn-transparent">
                             <i class="fa-solid fa-circle-info" style="color: #fff;"></i>
                         </button>
                     </div>
@@ -62,10 +62,10 @@
                                 <p><?= $data['tgl_dibuat'] ?></p>
                                 <ul class="navbar-nav me-auto ">
                                     <li class="nav-item">
-                                        <a class="nav-link text-color" aria-current="page" href="#home"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a class="nav-link text-color" aria-current="page" href="../../app/service/tambah_album.php?edit=<?php echo $data['album_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-color" href="../../app/service/tambah_album.php"><i class="fa-solid fa-trash"></i></a>
+                                        <a class="nav-link text-color" href="../../app/service/tambah_album.php?hapus=<?php echo $data['album_id'] ?>"><i class="fa-solid fa-trash"></i></a>
                                     </li>
                                 </ul>
 
@@ -77,7 +77,7 @@
             </aside>
         </nav>
     </header>
-    <section id="home" class="h-100 bg-secondary">
+    <section id="home" class="h-100">
         <?php
         include('../../config/koneksi.php');
         session_start();
@@ -86,39 +86,50 @@
         $sql = mysqli_query($konek, "SELECT *from album where user_id='$user_id' and album_id='$album_id'");
 
         while ($data = mysqli_fetch_array($sql)) {
-
         ?>
             <h1 class="text-color mb-4 mt-5"> <b><?= $data['nama_album'] ?></b></h1>
-        <?php
-        }
-        ?>
-        <!-- <div class="justify-content-center align-items-center"> -->
-        <div>
-            <div class="row">
-                <div class="mb-3 col col-md-3 img-hover" id="album">
-                    <div class="text-center">
-                        <a href="">
+            <div>
+                <div class="row">
+                    <div class="mb-3 col col-md-3 img-hover" id="album">
+                        <div class="text-center position-relative btn-tambah">
+                            <a href="tmbhfoto.php?album_id=<?php echo $data['album_id'] ?>">
+                                <!-- <input type="button" name="tmbAlbum" class="btn-tambah"> -->
+                                <i class="fa-solid fa-plus icon-tambah"></i>
+                            </a>
 
-                            <img src="../../dist/img/shal-e.jpg" height="250" width="250" class="object-fit-cover rounded">
-                            <span class="d-block">Shal E</span>
-                        </a>
+                        </div>
 
                     </div>
-                </div>
+                <?php
+            }
+                ?>
+                <!-- <div class="justify-content-center align-items-center"> -->
+                <?php
+                include('../../config/koneksi.php');
+                $user_id = $_SESSION['user_id'];
+                $sql = mysqli_query($konek, "SELECT * FROM foto, album WHERE foto.user_id='$user_id' AND foto.album_id=album.album_id");
+                while ($data = mysqli_fetch_array($sql)) {
+                ?>
 
-                <div class="mb-3 col col-md-3 img-hover" id="album">
-                    <div class="text-center position-relative btn-tambah">
-                        <a href="tmbhfoto.php">
-                            <!-- <input type="button" name="tmbAlbum" class="btn-tambah"> -->
-                            <i class="fa-solid fa-plus" style="font-size: 250px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
-                        </a>
+                    <div class="mb-3 col col-md-3 img-hover" id="album">
+                        <div class="text-center">
+                            <a href="foto.php">
+                                <img src="../../dist/uploads/<?php echo $data['lokasi_file']; ?>" height="250" width="250" class="object-fit-cover rounded" style="background-image: url('../../dist/uploads/<?php echo $data['lokasi_file']; ?>">
 
+                                <!-- <img src="../../dist/img/shal-e.jpg" height="250" width="250" class="object-fit-cover rounded"> -->
+                            </a>
+                            <h5 class="d-block text-color"><?php echo $data['judul_foto'] ?></h5>
+
+                        </div>
                     </div>
+
+                <?php
+                }
+                ?>
 
                 </div>
             </div>
-        </div>
-        <!-- </div> -->
+            <!-- </div> -->
 
     </section>
 

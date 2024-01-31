@@ -10,13 +10,13 @@ if (isset($_POST['btntambah_album'])) {
     $user_id = $_SESSION['user_id'];
 
     if (($_POST['btntambah_album'] == "tambah")) {
-        $gambar = $_FILES['gambar']['name'];
+        $foto = $_FILES['foto']['name'];
         $dir = "../../dist/uploads/";
-        $dirFile = $_FILES['gambar']['tmp_name'];
-        echo $gambar;
-        move_uploaded_file($dirFile, $dir . $gambar);
+        $dirFile = $_FILES['foto']['tmp_name'];
+        echo $foto;
+        move_uploaded_file($dirFile, $dir . $foto);
 
-        $query = mysqli_query($konek, "INSERT INTO album (nama_album, deskripsi, tgl_dibuat, user_id, gambar) VALUES ('$nama_album', '$deskripsi', '$tgl_dibuat', '$user_id','$gambar')");
+        $query = mysqli_query($konek, "INSERT INTO album (nama_album, deskripsi, tgl_dibuat, user_id, foto) VALUES ('$nama_album', '$deskripsi', '$tgl_dibuat', '$user_id','$foto')");
 
         if ($query) {
             header("location:../../pages/user/index.php");
@@ -26,5 +26,12 @@ if (isset($_POST['btntambah_album'])) {
         }
     } else {
         echo "Error: " . mysqli_error($konek);
+    }
+} elseif ($_GET['hapus']) {
+    $queryHapus = "SELECT foto from album where album_id='$_GET[hapus]'";
+    $query = "DELETE from album where album_id='$_GET[hapus]'";
+    $sql = mysqli_query($konek, $query);
+    if ($sql) {
+        header('location:../../pages/user/');
     }
 }

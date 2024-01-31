@@ -7,6 +7,7 @@ body {
   margin: 0;
   height: 100%;
 }
+
 .navbar {
   z-index: 10;
 }
@@ -45,6 +46,13 @@ footer {
   border-radius: 10px;
   border: none;
 }
+.icon-tambah {
+  font-size: 250px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .fa-solid {
   color: rgb(30, 30, 30);
 }
@@ -77,4 +85,14 @@ footer {
 }
 .mt-5 {
   margin-top: 10px !important;
+}
+
+.btn-transparent {
+  background-color: transparent;
+  border: none;
+  padding: 0; /* Hilangkan padding agar tombol tidak memiliki ruang tambahan di sekitar ikon */
+  cursor: pointer;
+}
+.margin-top {
+  margin-top: 70px;
 }
