@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tambah Album</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body>
@@ -48,13 +49,43 @@
                     }
                     ?> </div>
                 <div class="col-sm-6">
+                    <?php
+                    include('../../config/koneksi.php');
+                    session_start();
+                    $user_id = $_SESSION['user_id'];
+                    $album_id = $_GET['album_id'];
+                    $sql = mysqli_query($konek, "SELECT *from album where user_id='$user_id' and album_id='$album_id'");
+
+                    while ($data = mysqli_fetch_array($sql)) {
+
+                    ?>
                     <!-- Tombol Keluar -->
-                    <a href="index.php" class="btn btn-danger">KELUAR</a>
+                    <a href="album.php?album_id=<?php echo $data['album_id'] ?>" class="btn btn-danger">KELUAR</a>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
     </div>
     </form>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    <!-- <script>
+        document.getElementById('keluarButton').addEventListener('click', function() {
+            var url = this.href;
+            var album_id = getParameterByName('album_id', url);
+            alert('Album ID: ' + album_id);
+        });
+
+        function getParameterByName(name, url) {
+            name = name.replace(/[[]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+    </script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
 </body>
 
