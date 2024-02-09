@@ -5,10 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tambah Album</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
-<body class="bg-color">
+<body>
     <div class="container">
         <figure class="text-center mt-5">
             <blockquote class="blockquote">
@@ -35,11 +36,22 @@
 
             <div class="row mt-5">
                 <div class="col-sm-2">
-                    <button type='submit' class='btn btn-success' name='btntambah_album' value='tambah'>TAMBAH</button>
-                </div>
+                    <?php
+                    if (isset($_GET['edit'])) {
+                        echo "<button type='submit' class='btn btn-success' name='btntambah_album' value='edit'>SIMPAN</button>";
+                    } else {
+                        echo "<button type='submit' class='btn btn-success' name='btntambah_album' value='tambah'>TAMBAH</button>";
+                    }
+                    ?> </div>
                 <div class="col-sm-6">
 
-                    <a href="index.php" class="btn btn-danger">KELUAR</a>
+                    <?php
+                    session_start();
+                    include('../../config/koneksi.php');
+                    $user_id = $_SESSION['user_id'];
+                    ?>
+                    <a href="album.php?album_id=<?= isset($_SESSION['current_album_id']) ? $_SESSION['current_album_id'] : '' ?>"
+                        class="btn btn-danger">KELUAR</a>
 
                 </div>
             </div>
@@ -61,7 +73,8 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
     </script> -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
 </body>
 

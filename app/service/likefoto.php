@@ -7,8 +7,8 @@ if (!isset($_SESSION['user_id'])) {
     header("location:../../pages/user/index.php");
 } else {
     // Pastikan $_GET['foto_id'] ada dan memiliki nilai
-    if (isset($_GET['foto_id'])) {
-        $foto_id = $_GET['foto_id'];
+    if (isset($_GET['foto'])) {
+        $foto_id = $_GET['foto'];
         $user_id = $_SESSION['user_id'];
 
         $sql = mysqli_query($konek, "SELECT * FROM likefoto WHERE foto_id='$foto_id' AND user_id='$user_id'");
@@ -23,9 +23,8 @@ if (!isset($_SESSION['user_id'])) {
         }
 
         // Redirect to the photo page
-        header("location:../../pages/user/foto.php?foto_id=$foto_id");
-    } else {
-        // Jika parameter 'foto_id' tidak tersedia
-        echo "Parameter 'foto_id' tidak tersedia.";
+        $redirect_url = "../../pages/user/foto.php?foto=" . urlencode($foto_id);
+        header("Location: $redirect_url");
+        exit();
     }
 }

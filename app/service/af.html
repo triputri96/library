@@ -4,9 +4,63 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      .profile-card {
+        width: 200px;
+        height: 300px;
+        background-color: #f1f1f1;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+        margin: 10px;
+      }
+
+      .profile-card img {
+        width: 100%;
+        height: auto;
+      }
+
+      .profile-card p {
+        text-align: center;
+        margin: 10px 0;
+        font-weight: bold;
+      }
+      .hashtags {
+        font-size: 14px;
+        color: #666;
+        text-align: center;
+        margin: 10px 0;
+      }
+
+      .hashtags a {
+        color: #666;
+        text-decoration: none;
+        margin: 0 5px;
+      }
+    </style>
   </head>
   <body>
-    <a href="../../pages/user/index.php"></a>
-    <a href="../../gallery/pages/auth/login.php"></a>
+    <div class="profile-card" id="scoups">
+      <img src="scoups.jpg" alt="Scoups profile picture" />
+      <p>Scoups</p>
+    </div>
+
+    <div class="profile-card" id="jeonghan">
+      <img src="jeonghan.jpg" alt="Jeonghan profile picture" />
+      <p>Jeonghan</p>
+    </div>
+    <div class="profile-card" id="scoups">
+      <img src="scoups.jpg" alt="Scoups profile picture" />
+      <p>Scoups</p>
+      <div class="hashtags">
+        <a href="#">#seventeen</a>
+        <a href="#">#svt</a>
+        <a href="#">#goingseventeen</a>
+        <a href="#">#scoupsedit</a>
+      </div>
+    </div>
+
+    <!-- Add hashtags to the other profile cards as needed -->
+    <!-- Add more profile cards as needed -->
   </body>
 </html>

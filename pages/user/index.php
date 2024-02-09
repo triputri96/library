@@ -66,32 +66,46 @@ if (!isset($_SESSION['username'])) {
                 <?php
                 if (isset($_GET['search_results'])) {
                     $cari = $_GET['cari'];
-                    $query = "SELECT *from album where nama_album like '%$cari%'";
+                    $query = "SELECT * FROM album WHERE nama_album LIKE '%$cari%'";
                 } else {
                     $user_id = $_SESSION['user_id'];
-                    $sql = mysqli_query($konek, "SELECT *from  album where user_id='$user_id'");
+                    $sql = mysqli_query($konek, "SELECT * FROM album WHERE user_id='$user_id'");
                 }
+
                 while ($data = mysqli_fetch_array($sql)) {
+                    $album_id = $data['album_id'];
+                    $cover_image = getCoverImage($konek, $album_id);
+
                 ?>
                 <div class="mb-3 col col-md-3 img-hover" id="album">
                     <div class="text-center">
-                        <a href="album.php?album_id=<?= $data['album_id'] ?>">
-                            <!-- <div class="object-fit-cover rounded"
-                                style="height:250px; width=250px; background-image: url('../../dist/uploads/<?php echo $data['foto']; ?>')">
-                            </div> -->
-                            <img src="../../dist/uploads/<?php echo $data['foto']; ?>" height="250" width="250"
-                                class="object-fit-cover rounded"
-                                style="background-image: url('../../dist/uploads/<?php echo $data['foto']; ?>">
+                        <a href="album.php?album_id=<?= $album_id ?>">
+                            <img src="<?= $cover_image ? "../../dist/uploads/$cover_image" : "../../dist/img/gallery_default.png" ?>"
+                                height="250" width="250" class="object-fit-cover rounded">
                         </a>
                         <h5 class="d-block text-color">
                             <?php echo $data['nama_album']; ?>
                         </h5>
-
                     </div>
                 </div>
                 <?php
                 }
                 ?>
+
+                <?php
+                function getCoverImage($konek, $album_id)
+                {
+                    $query = "SELECT lokasi_file FROM foto WHERE album_id='$album_id' ORDER BY foto_id ASC LIMIT 1";
+                    $result = mysqli_query($konek, $query);
+
+                    if ($row = mysqli_fetch_assoc($result)) {
+                        return $row['lokasi_file'];
+                    }
+
+                    return null;
+                }
+                ?>
+
             </div>
         </div>
         <!-- </div> -->

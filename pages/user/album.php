@@ -53,7 +53,7 @@
                         $sql = mysqli_query($konek, "SELECT *from album where user_id='$user_id' and album_id='$album_id'");
 
                         while ($data = mysqli_fetch_array($sql)) {
-
+                            $_SESSION['current_album_id'] = $data['album_id'];
                         ?>
                         <div class="sidebar-header p-3">
                             <h3>
@@ -114,7 +114,7 @@
                 include('../../config/koneksi.php');
                 $user_id = $_SESSION['user_id'];
 
-                $album_id = $_GET['album_id']; 
+                $album_id = $_GET['album_id'];
 
                 $sql = mysqli_query($konek, "SELECT * FROM foto, album WHERE foto.user_id='$user_id' AND foto.album_id=album.album_id AND album.album_id='$album_id'"); // Perbarui query
 
