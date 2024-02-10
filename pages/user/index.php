@@ -41,14 +41,14 @@ if (!isset($_SESSION['username'])) {
                     <form class="d-flex" role="search" action="#search-results">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                             name="cari">
-                        <input class="btn btn-outline-light" type="submit" name="search_results">
+                        <input class="btn btn-outline-light" type="submit" name="search_results" value="Search">
                     </form>
                 </div>
             </div>
         </nav>
     </header>
     <section id="home" class="h-100">
-        <h1 class="text-color mb-4 margin-top">Selamat Datang <b><?= $_SESSION['nama'] ?></b></h1>
+        <h1 class="text-color mb-5 margin-top">Selamat Datang <b><?= $_SESSION['nama'] ?></b></h1>
         <!-- <div class="justify-content-center align-items-center"> -->
         <div>
             <div class="row">
@@ -69,13 +69,16 @@ if (!isset($_SESSION['username'])) {
                     $query = "SELECT * FROM album WHERE nama_album LIKE '%$cari%'";
                 } else {
                     $user_id = $_SESSION['user_id'];
-                    $sql = mysqli_query($konek, "SELECT * FROM album WHERE user_id='$user_id'");
+                    $query = "SELECT * FROM album WHERE user_id='$user_id'";
                 }
 
-                while ($data = mysqli_fetch_array($sql)) {
-                    $album_id = $data['album_id'];
-                    $cover_image = getCoverImage($konek, $album_id);
+                $result = mysqli_query($konek, $query);
 
+                // Check if $result is set before using it
+                if ($result) {
+                    while ($data = mysqli_fetch_array($result)) {
+                        $album_id = $data['album_id'];
+                        $cover_image = getCoverImage($konek, $album_id);
                 ?>
                 <div class="mb-3 col col-md-3 img-hover" id="album">
                     <div class="text-center">
@@ -89,8 +92,10 @@ if (!isset($_SESSION['username'])) {
                     </div>
                 </div>
                 <?php
+                    }
                 }
                 ?>
+
 
                 <?php
                 function getCoverImage($konek, $album_id)

@@ -25,6 +25,8 @@
             session_start();
             $user_id = $_SESSION['user_id'];
             $album_id = $_GET['album_id'];
+            $isEdit = isset($_GET['edit']);
+
             $sql = mysqli_query($konek, "SELECT *from album where user_id='$user_id' and album_id='$album_id'");
 
             while ($data = mysqli_fetch_array($sql)) {
@@ -57,7 +59,7 @@
                 </div>
             </div> -->
             <div class="row mt-5">
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     <?php
                     if (isset($_GET['edit'])) {
                         echo "<button type='submit' class='btn btn-success' name='tambahfoto' value='edit'>SIMPAN</button>";
@@ -65,6 +67,30 @@
                         echo "<button type='submit' class='btn btn-success' name='tambahfoto' value='tambah'>TAMBAH</button>";
                     }
                     ?> </div>
+                <div class="col-sm-6">
+                    <?php
+                    include('../../config/koneksi.php');
+                    $user_id = $_SESSION['user_id'];
+
+                    if ($isEdit) {
+                        // If it's an edit, check if 'foto_id' is set before using it
+                        $foto_id = isset($_GET['foto_id']) ? $_GET['foto_id'] : null;
+
+                        if (
+                            $foto_id !== null
+                        ) {
+                            echo "<a href='foto.php?foto_id=$foto_id' class='btn btn-danger'>KELUAR</a>";
+                        } else {
+                            // Handle the case when 'foto_id' is not set
+                            echo "Error: Missing 'foto_id'";
+                        }
+                    } else {
+                        // If it's not an edit, link to album.php with the appropriate album_id
+                        echo "<a href='album.php?album_id=" . (isset($_SESSION['current_album_id']) ? $_SESSION['current_album_id'] : '') . "' class='btn btn-danger'>KELUAR</a>";
+                    }
+                    ?>
+                </div>
+
             </div>
     </div>
     </form>

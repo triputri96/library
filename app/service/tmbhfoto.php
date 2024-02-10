@@ -34,16 +34,16 @@ if (isset($_POST['tambahfoto'])) {
     }
 }
 if (isset($_GET['hapusfoto'])) {
-    $foto_id = $_GET['foto_id'];
-    $queryHapus = "SELECT lokasi_file from foto where foto_id='$_GET[hapusfoto]'";
+    $foto_id = $_GET['hapusfoto'];
+    $queryHapus = "SELECT lokasi_file, album_id FROM foto WHERE foto_id='$foto_id'";
     $sqlHapus = mysqli_query($konek, $queryHapus);
     $data = mysqli_fetch_array($sqlHapus);
 
     unlink("../../dist/uploads/" . $data['lokasi_file']);
 
-    $query = mysqli_query($konek, "DELETE from foto where foto_id='$_GET[hapusfoto]'");
+    $query = mysqli_query($konek, "DELETE FROM foto WHERE foto_id='$foto_id'");
     if ($query) {
-        header('location:../../pages/user/foto.php');
+        header("location:../../pages/user/album.php?album_id={$data['album_id']}");
     } else {
         echo "Error: " . mysqli_error($konek);
     }

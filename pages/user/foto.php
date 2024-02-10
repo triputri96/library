@@ -107,12 +107,13 @@ if (!isset($_SESSION['username'])) {
                             <a href="" class="link-dark" type="text" name="komentar">
                                 <i class=" fa-solid fa-comment icon"></i>
                             </a>
-                            <a type="submit" name="editfoto" href="tmbhfoto.php" class="link-dark">
+                            <a type="submit" name="editfoto" href="tmbhfoto.php?edit=<?php echo $data['album_id'] ?>"
+                                class="link-dark">
                                 <i class=" fa-solid fa-pen-to-square icon"></i>
                             </a>
                             <a onclick="return confirm('Yakin menghapus data ini?')" class="nav-link text-color"
                                 href="../../app/service/tmbhfoto.php?hapusfoto=<?php echo $data['foto_id'] ?>">
-                                <i class="fa-solid fa-trash"></i>
+                                <i class="fa-solid fa-trash icon"></i>
                             </a>
                         </div>
                     </div>
