@@ -13,7 +13,7 @@
     <div class="container">
         <figure class="text-center mt-5">
             <blockquote class="blockquote">
-                <p>Tambah Album</p>
+                <p>DATA ALBUM</p>
             </blockquote>
             <!-- <figcaption class="blockquote-footer">
                 Someone famous in <cite title="Source Title">Source Title</cite>
@@ -75,9 +75,17 @@
                     session_start();
                     include('../../config/koneksi.php');
                     $user_id = $_SESSION['user_id'];
+
+                    if (isset($_GET['edit']) && isset($data['album_id'])) {
+                        // If editing, redirect to album.php with album_id
+                        echo "<a href='album.php?album_id=$album_id' class='btn btn-danger'>KELUAR</a>";
+                    } else {
+                        // If adding new album, redirect to index.php
+                        echo "<a href='index.php' class='btn btn-danger'>KELUAR</a>";
+                    }
                     ?>
-                    <a href="index.php" class="btn btn-danger">KELUAR</a>
                 </div>
+
             </div>
     </div>
     </form>

@@ -35,6 +35,10 @@ if (!isset($_SESSION['username'])) {
                             <a class="nav-link text-color" aria-current="page" href="#home">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-color" aria-current="page" href="profile.php">Profile</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link text-color" href="../auth/logout.php">Log Out</a>
                         </li>
                     </ul>
@@ -48,7 +52,7 @@ if (!isset($_SESSION['username'])) {
         </nav>
     </header>
     <section id="home" class="h-100">
-        <h1 class="text-color mb-5 margin-top">Selamat Datang <b><?= $_SESSION['nama'] ?></b></h1>
+        <h1 class="text-color mb-5 margin-top">Selamat Datang <b><?= $_SESSION['username'] ?></b></h1>
         <!-- <div class="justify-content-center align-items-center"> -->
         <div>
             <div class="row">

@@ -2,8 +2,6 @@
 include('../../config/koneksi.php');
 session_start();
 
-
-
 if (isset($_POST['tambahfoto'])) {
     // print_r($_SESSION);
     $judul_foto = $_POST['judul_foto'];
@@ -21,7 +19,7 @@ if (isset($_POST['tambahfoto'])) {
         // echo $lokasi_file;
         move_uploaded_file($dirFile, $dir . $lokasi_file);
 
-        $query = mysqli_query($konek, "INSERT INTO foto (judul_foto, deskripsi_foto, tgl_unggah, lokasi_file, album_id, user_id) VALUES ('$judul_foto','$deskripsi_foto','$tgl_unggah','$lokasi_file', '$album_id','$user_id')");
+        $query = mysqli_query($konek, "INSERT INTO `foto` (`judul_foto`, `deskripsi_foto`, `tgl_unggah`, `lokasi_file`, `album_id`, `user_id`) VALUES ('$judul_foto','$deskripsi_foto','$tgl_unggah','$lokasi_file', '$album_id','$user_id')");
 
         if ($query) {
             header("location:../../pages/user/album.php?album_id=$album_id");
@@ -35,16 +33,38 @@ if (isset($_POST['tambahfoto'])) {
 }
 if (isset($_GET['hapusfoto'])) {
     $foto_id = $_GET['hapusfoto'];
-    $queryHapus = "SELECT lokasi_file, album_id FROM foto WHERE foto_id='$foto_id'";
+
+    // Fetch related data from the `like` table
+    $likeQuery = mysqli_query($konek, "DELETE FROM `likefoto` WHERE foto_id='$foto_id'");
+    if (!$likeQuery) {
+        echo "Error deleting like data: " . mysqli_error($konek);
+        exit;
+    }
+
+    // Fetch related data from the `komentar` table
+    $komentarQuery = mysqli_query($konek, "DELETE FROM `komentar` WHERE foto_id='$foto_id'");
+    if (!$komentarQuery) {
+        echo "Error deleting komentar data: " . mysqli_error($konek);
+        exit;
+    }
+
+    // Fetch related data from the `foto` table
+    $queryHapus = "SELECT lokasi_file, album_id FROM `foto` WHERE foto_id='$foto_id'";
     $sqlHapus = mysqli_query($konek, $queryHapus);
     $data = mysqli_fetch_array($sqlHapus);
 
-    unlink("../../dist/uploads/" . $data['lokasi_file']);
+    $fileToDelete = "../../dist/uploads/" . $data['lokasi_file'];
+    if (file_exists($fileToDelete)) {
+        unlink(realpath($fileToDelete));
+    } else {
+        echo "File not found: " . $fileToDelete;
+    }
 
-    $query = mysqli_query($konek, "DELETE FROM foto WHERE foto_id='$foto_id'");
+    // Delete the photo from the `foto` table
+    $query = mysqli_query($konek, "DELETE FROM `foto` WHERE foto_id='$foto_id'");
     if ($query) {
         header("location:../../pages/user/album.php?album_id={$data['album_id']}");
     } else {
-        echo "Error: " . mysqli_error($konek);
+        echo "Error deleting foto data: " . mysqli_error($konek);
     }
 }

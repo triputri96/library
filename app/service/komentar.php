@@ -1,5 +1,4 @@
 <?php
-
 include('../../config/koneksi.php');
 
 session_start();
@@ -22,7 +21,23 @@ if (isset($_POST['tmbhcomment'])) {
     } else {
         echo "Error: " . mysqli_error($konek);
     }
-}
+} elseif (isset($_GET['hapuskomentar'])) {
+    // Handle comment deletion
+    $komentar_id = $_GET['hapuskomentar'];
 
-// Close the database connection if needed
-mysqli_close($konek);
+    // Fetch the foto_id before deletion
+    $fotoSql = mysqli_query($konek, "SELECT foto_id FROM komentar WHERE komentar_id = '$komentar_id'");
+    $fotoData = mysqli_fetch_assoc($fotoSql);
+    $foto_id = $fotoData['foto_id'];
+
+    $deleteSql = "DELETE FROM komentar WHERE komentar_id = '$komentar_id'";
+
+    if (mysqli_query($konek, $deleteSql)) {
+        // Redirect back to foto.php with the corresponding foto_id
+        $redirect_url = "../../pages/user/foto.php?foto=" . urlencode($foto_id);
+        header("Location: $redirect_url");
+        exit();
+    } else {
+        echo "Error deleting comment: " . mysqli_error($konek);
+    }
+}
