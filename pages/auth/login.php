@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 session_start();
-if (isset($_SESSION['username'])) {
+if (isset($_SESSION['email'])) {
     header('location:../user/index.php');
     exit;
 }
@@ -23,14 +23,14 @@ if (isset($_SESSION['username'])) {
             <?php
             if (isset($_GET['pesan'])) {
             ?>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Login Gagal </strong><?php echo $_GET['pesan']; ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Login Gagal </strong><?php echo $_GET['pesan']; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <?php } ?>
             <h1>Login</h1>
             <div class="input-box">
-                <input type="text" placeholder="Username" name="username" required>
+                <input type="email" placeholder="email" name="email" required>
                 <i class="fa-solid fa-user"></i>
             </div>
             <div class="input-box">

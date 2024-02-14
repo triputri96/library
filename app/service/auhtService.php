@@ -3,10 +3,10 @@ include('../../config/koneksi.php');
 
 if (isset($_POST['btnLogin'])) {
 
-    $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $query = mysqli_query($konek, "SELECT * FROM user WHERE username='$username'");
+    $query = mysqli_query($konek, "SELECT * FROM user WHERE email='$email'");
     $data = mysqli_fetch_array($query);
 
     if (mysqli_num_rows($query) >= 1) {
@@ -14,7 +14,7 @@ if (isset($_POST['btnLogin'])) {
             // login valid
             session_start();
             $_SESSION['user_id'] = $data['user_id'];
-            $_SESSION['username'] = $data['username'];
+            $_SESSION['email'] = $data['email'];
             $_SESSION['nama'] = $data['nama'];
             header('location:../../pages/user');
         } else {
@@ -22,8 +22,8 @@ if (isset($_POST['btnLogin'])) {
             header('location:../../pages/auth/login.php?pesan=Password Salah');
         }
     } else {
-        // Username salah;
-        header('location:../../pages/auth/login.php?pesan=Username Salah');
+        // email salah;
+        header('location:../../pages/auth/login.php?pesan=email Salah');
     }
 }
 
