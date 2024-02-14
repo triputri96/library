@@ -50,13 +50,14 @@ body {
 }
 .author-card .author-card-profile .author-card-avatar {
   width: 85px;
-  border-radius: 50%;
+  border-radius: 100%;
   box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
   overflow: hidden;
 }
 .author-card .author-card-profile .author-card-avatar > img {
   display: block;
-  width: 100%;
+  width: 100px;
+  height: 100px;
 }
 .author-card .author-card-profile .author-card-details {
   padding-top: 20px;
@@ -153,7 +154,7 @@ a.list-group-item,
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
+  text-transform: lowercase;
   text-decoration: none;
 }
 .list-group-item {

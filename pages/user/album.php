@@ -27,9 +27,10 @@
                         <li class="nav-item">
                             <a class="nav-link text-color" aria-current="page" href="index.php">Home</a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link text-color" href="../auth/logout.php">Hapus</a>
-                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link text-color" aria-current="page" href="profile.php">Profile</a>
+                        </li>
+
                     </ul>
                     <div class="d-flex">
                         <button type="button" onclick="toggleSidebar(true)" class="btn-transparent">
@@ -69,7 +70,7 @@
                                             class="fa-solid fa-pen-to-square"></i></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-color"
+                                    <a onclick="return confirm('Yakin menghapus data ini?')" class="nav-link text-color"
                                         href="../../app/service/tambah_album.php?hapus=<?php echo $data['album_id'] ?>"><i
                                             class="fa-solid fa-trash"></i></a>
                                 </li>

@@ -25,7 +25,9 @@ if (!isset($_SESSION['username'])) {
         <nav class="navbar navbar-expand-lg bg-secondary nav-padding fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand text-color logo-cursor" href="#">putriGalery</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -39,9 +41,11 @@ if (!isset($_SESSION['username'])) {
                             include('../../config/koneksi.php');
                             $user_id = $_SESSION['user_id'];
                             ?>
-                            <a class="nav-link text-color" href="album.php?album_id=<?= isset($_SESSION['current_album_id']) ? $_SESSION['current_album_id'] : '' ?>">Album</a>
+                            <a class="nav-link text-color"
+                                href="album.php?album_id=<?= isset($_SESSION['current_album_id']) ? $_SESSION['current_album_id'] : '' ?>">Album</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link text-color" aria-current="page" href="profile.php">Profile</a>
                         </li>
                     </ul>
                 </div>
@@ -49,7 +53,7 @@ if (!isset($_SESSION['username'])) {
         </nav>
     </header>
 
-    <section class="main">
+    <section class="main ">
         <div class="container">
             <table class="table">
                 <tr>
@@ -67,7 +71,7 @@ if (!isset($_SESSION['username'])) {
 
                             if ($data = mysqli_fetch_array($sql)) {
                         ?>
-                                <img src="../../dist/uploads/<?php echo $data['lokasi_file']; ?>" class="post-image">
+                        <img src="../../dist/uploads/<?php echo $data['lokasi_file']; ?>" class="post-image">
                         <?php
                             }
                         } else {
@@ -90,12 +94,12 @@ if (!isset($_SESSION['username'])) {
                         if ($data = mysqli_fetch_array($sql)) {
                     ?>
 
-                            <td>
-                                <div>
-                                    <h3 class=""><?= $data['judul_foto'] ?></h3>
-                                    <!-- <p class="sub-text">followed bu user</p> -->
-                                </div>
-                            </td>
+                    <td>
+                        <div>
+                            <h3 class=""><?= $data['judul_foto'] ?></h3>
+                            <!-- <p class="sub-text">followed bu user</p> -->
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>
@@ -106,12 +110,12 @@ if (!isset($_SESSION['username'])) {
                                     <p class="sub-text"><?= $data['deskripsi_foto'] ?></p>
                                     <p class="sub-text"><?= $data['tgl_unggah'] ?></p>
                                     <p class="sub-text"><?= $data['lokasi_file'] ?></p>
-                            <?php
+                                    <?php
                         }
                     }
                             ?>
-                            <p>Komentar</p>
-                            <?php
+                                    <p>Komentar</p>
+                                    <?php
                             include('../../config/koneksi.php');
                             $user_id = $_SESSION['user_id'];
 
@@ -132,15 +136,20 @@ if (!isset($_SESSION['username'])) {
 
                                                     <div class="user d-flex flex-row align-items-center">
 
-                                                        <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
-                                                        <p class="username" style="margin-bottom: 0; padding-left: 10px;">
+                                                        <img src="<?php echo $data['picture'] ? '../../dist/profile/' . $data['picture'] : '../../dist/img/profile.png'; ?>"
+                                                            width="40" height="40"
+                                                            class="object-fit-cover rounded-circle">
+                                                        <p class="username"
+                                                            style="margin-bottom: 0; padding-left: 10px;">
                                                             <?= $data['username'] ?>
                                                         </p>
                                                         <br>
                                                     </div>
 
                                                     <small>
-                                                        <a onclick="return confirm('Yakin menghapus data ini?')" class="nav-link text-color" href="../../app/service/komentar.php?hapuskomentar=<?php echo $data['komentar_id'] ?>">
+                                                        <a onclick="return confirm('Yakin menghapus data ini?')"
+                                                            class="nav-link text-color"
+                                                            href="../../app/service/komentar.php?hapuskomentar=<?php echo $data['komentar_id'] ?>">
                                                             <i class="fa-solid fa-trash icon"></i>
                                                         </a>
 
@@ -148,7 +157,8 @@ if (!isset($_SESSION['username'])) {
 
                                                 </div>
                                                 <p class="sub-text mt-2"><?= $data['isi_komentar'] ?></p>
-                                                <div class="action d-flex justify-content-between mt-2 align-items-center">
+                                                <div
+                                                    class="action d-flex justify-content-between mt-2 align-items-center">
                                                     <div class="icons align-items-center">
                                                         <small><?= $data['tgl_komentar'] ?></small>
                                                         <!-- <i class="fa fa-star text-warning"></i>
@@ -170,7 +180,7 @@ if (!isset($_SESSION['username'])) {
                                         <p class="sub-text"><?= $data['isi_komentar'] ?></p>
                                     </div>
                                 </div> -->
-                            <?php
+                                    <?php
                                 }
                             } else {
                                 echo "Error: 'foto' is not set.";  // Change 'foto_id' to 'foto'
@@ -200,8 +210,9 @@ if (!isset($_SESSION['username'])) {
                                 if ($data = mysqli_fetch_array($sql)) {
                                 ?>
 
-                                    <a id="likeButton" href="../../app/service/likefoto.php?foto=<?= $data['foto_id'] ?>" class="link-dark" name="likefoto">
-                                        <?php
+                                <a id="likeButton" href="../../app/service/likefoto.php?foto=<?= $data['foto_id'] ?>"
+                                    class="link-dark" name="likefoto">
+                                    <?php
                                         $likeSql = mysqli_query($konek, "SELECT * FROM foto WHERE user_id = '$user_id'");
                                         $userData = mysqli_fetch_array($likeSql);
 
@@ -214,7 +225,7 @@ if (!isset($_SESSION['username'])) {
                                             }
                                         }
                                         ?>
-                                    </a>
+                                </a>
 
                                 <?php
                                 } else {
@@ -226,10 +237,12 @@ if (!isset($_SESSION['username'])) {
                                 <a href="#komentar" class="link-dark" type="text" name="komentar">
                                     <i class=" fa-solid fa-comment icon"></i>
                                 </a>
-                                <a type="submit" name="editfoto" href="editfoto.php?edit=<?php echo $data['foto_id'] ?>" class="link-dark">
+                                <a type="submit" name="editfoto" href="editfoto.php?edit=<?php echo $data['foto_id'] ?>"
+                                    class="link-dark">
                                     <i class=" fa-solid fa-pen-to-square icon"></i>
                                 </a>
-                                <a onclick="return confirm('Yakin menghapus data ini?')" class="nav-link text-color" href="../../app/service/tmbhfoto.php?hapusfoto=<?php echo $data['foto_id'] ?>">
+                                <a onclick="return confirm('Yakin menghapus data ini?')" class="nav-link text-color"
+                                    href="../../app/service/tmbhfoto.php?hapusfoto=<?php echo $data['foto_id'] ?>">
                                     <i class="fa-solid fa-trash icon"></i>
                                 </a>
                             </div>
@@ -245,8 +258,10 @@ if (!isset($_SESSION['username'])) {
                                     <img src="" class="icon" alt="">
                                     <input type="hidden" name="foto_id" value="<?php echo $foto_id; ?>">
 
-                                    <input type="text" class="comment-box" placeholder="Add a comment" name="isi_komentar">
-                                    <button type="submit" name="tmbhcomment" class="comment-btn" name="btn_komentar">post</button>
+                                    <input type="text" class="comment-box" placeholder="Add a comment"
+                                        name="isi_komentar">
+                                    <button type="submit" name="tmbhcomment" class="comment-btn"
+                                        name="btn_komentar">post</button>
                                 </div>
                             </form>
                         </section>
@@ -258,7 +273,8 @@ if (!isset($_SESSION['username'])) {
 
         </div>
     </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
 
 

@@ -41,3 +41,41 @@ if (isset($_POST['btnDaftar'])) {
         echo "<script>alert('Sukses'); window.location.href='../../pages/auth/login.php'</script>";
     }
 }
+if (isset($_POST['btnupdate'])) {
+    session_start();
+    $user_id = $_SESSION['user_id'];
+    $username = $_POST['username'];
+    $nama = $_POST['nama'];
+    $alamat = $_POST['alamat'];
+
+    // Upload profile picture if provided
+    if ($_FILES['picture']['name'] != "") {
+        $target_dir = "../../dist/profile/";
+        $picture_name = basename($_FILES['picture']['name']);
+        $target_file = $target_dir . $picture_name;
+        move_uploaded_file($_FILES['picture']['tmp_name'], $target_file);
+
+        $queryHapus = "SELECT picture FROM user WHERE user_id='$user_id'";
+        $sqlHapus = mysqli_query($konek, $queryHapus);
+        $data = mysqli_fetch_array($sqlHapus);
+
+        $fileToDelete = "../../dist/profile/" . $data['picture'];
+        if (file_exists($fileToDelete)) {
+            unlink(realpath($fileToDelete));
+        } else {
+            echo "File not found: " . $fileToDelete;
+        }
+
+        // Update user with profile picture
+        $query = mysqli_query($konek, "UPDATE user SET username='$username', nama='$nama', alamat='$alamat', picture='$picture_name' WHERE user_id='$user_id'");
+    } else {
+        // Update user without profile picture
+        $query = mysqli_query($konek, "UPDATE user SET username='$username', nama='$nama', alamat='$alamat' WHERE user_id='$user_id'");
+    }
+
+    if ($query) {
+        echo "<script>window.location.href='../../pages/user/profile.php'</script>";
+    } else {
+        echo "<script>alert('Error updating profile.');";
+    }
+}
